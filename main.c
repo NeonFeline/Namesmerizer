@@ -27,10 +27,24 @@ static void anyascii_string(const char *in, char *out) {
 	*out = 0;
 }
 
+char* cutExtensionNameOff(char* string){
+    int ln = strlen(string);
+    char* extension = malloc(sizeof(string)+1);
+    for (int i=ln-1; i > 0; i--){
+        if (string[i] == '.'){
+            strncpy(extension, string+i, ln-i);
+            string[i] = '\0';
+            break;
+        }
+    }
+    return extension;
+}
+
 
 int main(int argc, char *argv[]) {
-  char name_out[256];
-
-  anyascii_string("Żok", name_out);
-    printf("%s", name_out);
+    char name_out[256];
+    printf("%s\n", name_out); 
+    char* name = "adsjfn.zip";
+    char* extension = cutExtensionNameOff(name);
+    printf("%s\n", extension);
 }

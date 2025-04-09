@@ -53,3 +53,5 @@ dkms.conf
 
 c/*
 CmakeFiles/*
+*.cmake
+CMakeCache.txt
