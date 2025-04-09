@@ -6,6 +6,8 @@
 #include <string.h>
 #include "./src/anyascii.h"
 #include "./src/utf8.h"
+#include "./src/letter_case.h"
+
 
 static void anyascii_string(const char *in, char *out) {
 	uint32_t utf32;
@@ -29,8 +31,11 @@ static void anyascii_string(const char *in, char *out) {
 
 
 int main(int argc, char *argv[]) {
-  char name_out[256];
+  char name_out[256] = "sHEsXsW";
+  lowercase_letters_and_convert_first_one_to_uppercase_inplace(name_out);
+  printf("%c\n", convert_to_lowercase('a'));
+  printf("%s\n", name_out);
 
   anyascii_string("Żok", name_out);
-    printf("%s", name_out);
+  printf("%s\n", name_out);
 }

@@ -142,6 +142,19 @@ namesmerizer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/namesmerizer.dir/build.make CMakeFiles/namesmerizer.dir/build
 .PHONY : namesmerizer/fast
 
+#=============================================================================
+# Target rules for targets named test_runner
+
+# Build rule for target.
+test_runner: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_runner
+.PHONY : test_runner
+
+# fast build rule for target.
+test_runner/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runner.dir/build.make CMakeFiles/test_runner.dir/build
+.PHONY : test_runner/fast
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -193,6 +206,33 @@ src/anyascii.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/namesmerizer.dir/build.make CMakeFiles/namesmerizer.dir/src/anyascii.c.s
 .PHONY : src/anyascii.c.s
 
+src/letter_case.o: src/letter_case.c.o
+.PHONY : src/letter_case.o
+
+# target to build an object file
+src/letter_case.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/anyascii.dir/build.make CMakeFiles/anyascii.dir/src/letter_case.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/namesmerizer.dir/build.make CMakeFiles/namesmerizer.dir/src/letter_case.c.o
+.PHONY : src/letter_case.c.o
+
+src/letter_case.i: src/letter_case.c.i
+.PHONY : src/letter_case.i
+
+# target to preprocess a source file
+src/letter_case.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/anyascii.dir/build.make CMakeFiles/anyascii.dir/src/letter_case.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/namesmerizer.dir/build.make CMakeFiles/namesmerizer.dir/src/letter_case.c.i
+.PHONY : src/letter_case.c.i
+
+src/letter_case.s: src/letter_case.c.s
+.PHONY : src/letter_case.s
+
+# target to generate assembly for a file
+src/letter_case.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/anyascii.dir/build.make CMakeFiles/anyascii.dir/src/letter_case.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/namesmerizer.dir/build.make CMakeFiles/namesmerizer.dir/src/letter_case.c.s
+.PHONY : src/letter_case.c.s
+
 src/utf8.o: src/utf8.c.o
 .PHONY : src/utf8.o
 
@@ -217,6 +257,30 @@ src/utf8.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/namesmerizer.dir/build.make CMakeFiles/namesmerizer.dir/src/utf8.c.s
 .PHONY : src/utf8.c.s
 
+test.o: test.c.o
+.PHONY : test.o
+
+# target to build an object file
+test.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runner.dir/build.make CMakeFiles/test_runner.dir/test.c.o
+.PHONY : test.c.o
+
+test.i: test.c.i
+.PHONY : test.i
+
+# target to preprocess a source file
+test.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runner.dir/build.make CMakeFiles/test_runner.dir/test.c.i
+.PHONY : test.c.i
+
+test.s: test.c.s
+.PHONY : test.s
+
+# target to generate assembly for a file
+test.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_runner.dir/build.make CMakeFiles/test_runner.dir/test.c.s
+.PHONY : test.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -227,15 +291,22 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... anyascii"
 	@echo "... namesmerizer"
+	@echo "... test_runner"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
 	@echo "... src/anyascii.o"
 	@echo "... src/anyascii.i"
 	@echo "... src/anyascii.s"
+	@echo "... src/letter_case.o"
+	@echo "... src/letter_case.i"
+	@echo "... src/letter_case.s"
 	@echo "... src/utf8.o"
 	@echo "... src/utf8.i"
 	@echo "... src/utf8.s"
+	@echo "... test.o"
+	@echo "... test.i"
+	@echo "... test.s"
 .PHONY : help
 
 
