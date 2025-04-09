@@ -66,6 +66,7 @@ int main() {
 
 	check("René François Lacôte", "Rene Francois Lacote");
 	check("Blöße", "Blosse");
+	check("zażółć gęślą jaźń", "zazolc gesla jazn");
 	check("Trần Hưng Đạo", "Tran Hung Dao");
 	check("Nærøy", "Naeroy");
 	check("Φειδιππίδης", "Feidippidis");
