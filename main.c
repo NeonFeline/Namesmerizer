@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "./src/anyascii.h"
 #include "./src/utf8.h"
 
@@ -27,12 +28,32 @@ static void anyascii_string(const char *in, char *out) {
 	*out = 0;
 }
 
-void cut_extension_name_off(char buffer[], char string[]){
-    int ln = strlen(string);
+void correct_by_pieces(char srcString[], char destString[], char delimiter){
+    int ln = strlen(srcString);
+    int currentWordLength = 0;
+    char currentWordBuffer[ln];
+    for (int i=0; i < ln; i++){
+        char c = srcString[i];
+        if (isalnum(c)){
+            currentWordBuffer[currentWordLength] = c;
+            currentWordLength++;
+        }
+        else if (currentWordLength > 0){
+            // function(currentWordBuffer);
+            currentWordBuffer[currentWordLength] = delimiter;
+            strncat(destString, currentWordBuffer, currentWordLength+1);
+            currentWordLength = 0;
+        }
+    }
+    strncat(destString, currentWordBuffer, currentWordLength);
+}
+
+void cut_extension_name_off(char extensionNameBuffer[], char srcString[]){
+    int ln = strlen(srcString);
     for (int i=ln-1; i > 0; i--){
-        if (string[i] == '.'){
-            strncpy(buffer, string+i, ln-i);
-            string[i] = '\0';
+        if (srcString[i] == '.'){
+            strncpy(extensionNameBuffer, srcString+i, ln-i+1); // +1 for null terminating char
+            srcString[i] = '\0';
             break;
         }
     }
@@ -40,10 +61,9 @@ void cut_extension_name_off(char buffer[], char string[]){
 
 int main(int argc, char *argv[]) {
     char name_out[256];
-    printf("%s\n", name_out); 
-    char name[] = "adsjfn.zip";
-    char extensionBuffer[strlen(name)];
-    cut_extension_name_off(extensionBuffer, name);
-    printf("%s\n", extensionBuffer);
-    printf("%s\n", name);
+    char name[] = "___++123--l.jfn.zip";
+    char extensionNameBuffer[strlen(name)];
+    cut_extension_name_off(extensionNameBuffer, name);
+    correct_by_pieces(name, name_out, '_');
+    puts(name_out);
 }
