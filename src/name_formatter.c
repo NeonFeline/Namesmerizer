@@ -1,5 +1,8 @@
 #include "name_formatter.h"
 
+#include <ctype.h>
+#include <string.h>
+
 void cut_extension_name_off(char extensionNameBuffer[], char srcString[]){
     int ln = strlen(srcString);
     for (int i=ln-1; i > 0; i--){

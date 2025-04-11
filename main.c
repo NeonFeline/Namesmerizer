@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "./src/anyascii.h"
 #include "./src/utf8.h"
 #include "./src/name_formatter.h"
