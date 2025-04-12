@@ -31,9 +31,10 @@ static void anyascii_string(const char *in, char *out) {
 
 int main(int argc, char *argv[]) {
     char name_out[256];
-    char name[] = "___++123--l.jfn.zip";
+    char name[] = "___[[++]]FiodorKurmanov1..23]--l.jfn.zip";
     char extensionNameBuffer[strlen(name)];
     cut_extension_name_off(extensionNameBuffer, name);
     correct_by_pieces(name, name_out, '_');
-    puts(name_out);
+	// printf("%lu", strlen(name_out));
+	puts(name_out);
 }
