@@ -1,4 +1,5 @@
 #include "name_formatter.h"
+#include "letter_case.h"
 
 #include <ctype.h>
 #include <string.h>
@@ -40,7 +41,7 @@ void correct_by_pieces(char srcString[], char destString[], char delimiter){
             );
 
             if (endOfCurrentWord){
-                // function(currentWordBuffer);
+                lowercase_letters_and_convert_first_one_to_uppercase_inplace(currentWordBuffer);
                 currentWordBuffer[currentWordLength] = delimiter;
                 if (i == ln - 1){
                     currentWordLength -= 1; //to avoid including the delimiter in the following strncat call
