@@ -38,11 +38,9 @@ int main(int argc, char *argv[]) {
 
   	anyascii_string("Żok", name_out);
   	printf("%s\n", name_out);
-	char name_out[256];
+
 	char name[] = "___[[++]]FiodorKurmanov1..23]--l.jfn.zip";
 	char extensionNameBuffer[strlen(name)];
 	cut_extension_name_off(extensionNameBuffer, name);
 	correct_by_pieces(name, name_out, '_');
-	// printf("%lu", strlen(name_out));
-	puts(name_out);
 }
