@@ -7,7 +7,7 @@
 #include "./src/anyascii.h"
 #include "./src/utf8.h"
 #include "./src/letter_case.h"
-
+#include "./src/name_formatter.h"
 
 static void anyascii_string(const char *in, char *out) {
 	uint32_t utf32;
@@ -31,11 +31,18 @@ static void anyascii_string(const char *in, char *out) {
 
 
 int main(int argc, char *argv[]) {
-  char name_out[256] = "sHEsXsW";
-  lowercase_letters_and_convert_first_one_to_uppercase_inplace(name_out);
-  printf("%c\n", convert_to_lowercase('a'));
-  printf("%s\n", name_out);
+	char name_out[256] = "sHEsXsW";
+	lowercase_letters_and_convert_first_one_to_uppercase_inplace(name_out);
+	printf("%c\n", convert_to_lowercase('a'));
+	printf("%s\n", name_out);
 
-  anyascii_string("Żok", name_out);
-  printf("%s\n", name_out);
+  	anyascii_string("Żok", name_out);
+  	printf("%s\n", name_out);
+	char name_out[256];
+	char name[] = "___[[++]]FiodorKurmanov1..23]--l.jfn.zip";
+	char extensionNameBuffer[strlen(name)];
+	cut_extension_name_off(extensionNameBuffer, name);
+	correct_by_pieces(name, name_out, '_');
+	// printf("%lu", strlen(name_out));
+	puts(name_out);
 }
