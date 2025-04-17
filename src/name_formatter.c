@@ -16,13 +16,31 @@ void cut_extension_name_off(char extensionNameBuffer[], char srcString[]){
     }
 }
 
-void correct_by_pieces(char srcString[], char destString[], char delimiter){
+void cut_id_out(char idBuffer[], char srcString[]){
     int ln = strlen(srcString);
+    char srcStringWithoutId[ln+1];
+    int currentIdLength = 0;
+    for (int i=0; i<ln; i++){
+        if (isnumber(srcString[i])){
+            idBuffer[currentIdLength] = srcString[i];
+            currentIdLength++;
+        } 
+        else {
+            srcStringWithoutId[i-currentIdLength] = srcString[i];
+        }
+    }
+    idBuffer[currentIdLength] = '\0';
+    srcStringWithoutId[strlen(srcStringWithoutId)] = '\0';
+    strcpy(srcString, srcStringWithoutId);
+}
+
+void separate_and_apply_case(char srcString[], char filenameBody[], char delimiter){
+    int ln = strlen(srcString);
+    char currentWordBuffer[ln+52];
     int currentWordLength = 0;
-    char currentWordBuffer[ln];
+    filenameBody[0] = '\0'; //because we use strncat further on, we ensure here that the buffer is empty
 
     for (int i=0; i < ln; i++){
-
         char c = srcString[i];
         char cNext = srcString[i+1]; // relies on srcString being null-terminated,
                                     // which is enforced by cut_extension_name_off
@@ -43,12 +61,29 @@ void correct_by_pieces(char srcString[], char destString[], char delimiter){
             if (endOfCurrentWord){
                 lowercase_letters_and_convert_first_one_to_uppercase_inplace(currentWordBuffer);
                 currentWordBuffer[currentWordLength] = delimiter;
-                if (i == ln - 1){
-                    currentWordLength -= 1; //to avoid including the delimiter in the following strncat call
-                }
-                strncat(destString, currentWordBuffer, currentWordLength+1);
+                strncat(filenameBody, currentWordBuffer, currentWordLength+1);
                 currentWordLength = 0;
             }
         }
     }
+    filenameBody[strlen(filenameBody)-1] = '\0'; //removes the delimiter at the end
+}
+
+void glue_together(char outputBuffer[], char id[], char filenameBody[], char extensionName[], char delimiter){
+    strcpy(outputBuffer, id);
+    outputBuffer[strlen(outputBuffer)] = delimiter;
+    strcat(outputBuffer, filenameBody);
+    strcat(outputBuffer, extensionName);
+}
+
+void format_name(char outputBuffer[], char srcString[]){
+    int ln = strlen(srcString);
+    char extensionNameBuffer[ln+1];
+    char filenameBody[ln*2];
+    char idBuffer[ln+1];
+    char delimiter = '_';
+    cut_extension_name_off(extensionNameBuffer, srcString);
+    cut_id_out(idBuffer, srcString);
+    separate_and_apply_case(srcString, filenameBody, delimiter);
+    glue_together(outputBuffer, idBuffer, filenameBody, extensionNameBuffer, delimiter);
 }

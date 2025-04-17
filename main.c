@@ -39,11 +39,8 @@ int main(int argc, char *argv[]) {
   	anyascii_string("Żok", name_out);
   	printf("%s\n", name_out);
 
-	char name_out2[256];
-	char name[] = "___[[++]]fiodorKurmanov1..23]--l.jfn.zip";
-	char extensionNameBuffer[strlen(name)];
-	cut_extension_name_off(extensionNameBuffer, name);
-	correct_by_pieces(name, name_out2, '_');
-	strcat(name_out2, extensionNameBuffer); // is this line okay?
+	char name[] = "___[[++]]123fiodorKurmanov1..23]--l.jfn.zip";
+	char name_out2[strlen(name)*2];
+	format_name(name_out2, name);
 	puts(name_out2);
 }
