@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
   	anyascii_string("Żok", name_out);
   	printf("%s\n", name_out);
 
-	char name[] = "___[[++]]123fiodorKurmanov1..23]--l.jfn.zip";
+	char name[] = "__[misterKvadrister[]..---134553.zip";
 	char name_out2[strlen(name)*2];
 	format_name(name_out2, name);
 	puts(name_out2);

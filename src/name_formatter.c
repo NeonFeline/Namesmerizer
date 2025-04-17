@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdio.h> //for debugging
 
 void cut_extension_name_off(char extensionNameBuffer[], char srcString[]){
     int ln = strlen(srcString);
@@ -30,7 +31,7 @@ void cut_id_out(char idBuffer[], char srcString[]){
         }
     }
     idBuffer[currentIdLength] = '\0';
-    srcStringWithoutId[strlen(srcStringWithoutId)] = '\0';
+    srcStringWithoutId[ln-1-currentIdLength] = '\0';
     strcpy(srcString, srcStringWithoutId);
 }
 
