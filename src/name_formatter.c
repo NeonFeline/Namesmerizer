@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <stdio.h> //for debugging
 
+// Doesn't work when srcString is just ".zip"
 void cut_extension_name_off(char extensionNameBuffer[], char srcString[]){
     int ln = strlen(srcString);
     for (int i=ln-1; i > 0; i--){
@@ -17,27 +18,35 @@ void cut_extension_name_off(char extensionNameBuffer[], char srcString[]){
     }
 }
 
-void cut_id_out(char idBuffer[], char srcString[]){
+void cut_id_out(char idBuffer[], char srcString[]) {
     int ln = strlen(srcString);
     char srcStringWithoutId[ln+1];
     int currentIdLength = 0;
-    for (int i=0; i<ln; i++){
-        if (isnumber(srcString[i])){
+    int nonDigitIndex = 0;
+
+    for (int i = 0; i < ln; i++) {
+        if (isdigit(srcString[i])) {
             idBuffer[currentIdLength] = srcString[i];
             currentIdLength++;
-        } 
+        }
         else {
-            srcStringWithoutId[i-currentIdLength] = srcString[i];
+            srcStringWithoutId[nonDigitIndex] = srcString[i];
+            nonDigitIndex++;
         }
     }
+
+    // Add null terminators
     idBuffer[currentIdLength] = '\0';
-    srcStringWithoutId[ln-1-currentIdLength] = '\0';
+    srcStringWithoutId[nonDigitIndex] = '\0';
+
+    // Copy the string without digits back to srcString
     strcpy(srcString, srcStringWithoutId);
 }
 
+
 void separate_and_apply_case(char srcString[], char filenameBody[], char delimiter){
     int ln = strlen(srcString);
-    char currentWordBuffer[ln+52];
+    char currentWordBuffer[ln+52]; // Why 52?
     int currentWordLength = 0;
     filenameBody[0] = '\0'; //because we use strncat further on, we ensure here that the buffer is empty
 
@@ -45,14 +54,14 @@ void separate_and_apply_case(char srcString[], char filenameBody[], char delimit
         char c = srcString[i];
         char cNext = srcString[i+1]; // relies on srcString being null-terminated,
                                     // which is enforced by cut_extension_name_off
-        if (isalnum(c)) { 
+        if (isalnum(c)) {
             currentWordBuffer[currentWordLength] = c;
             currentWordLength++;
 
             bool currentLetterIsLowercase = 96 < c && c < 123;
             bool nextLetterIsUppercase = 64 < cNext && cNext < 91;
             bool charIntoNumber = (isalpha(c)) && (47 < cNext && cNext < 58);
-            bool numberIntoChar = (47 < c && c < 58) && (isalpha(cNext)); 
+            bool numberIntoChar = (47 < c && c < 58) && (isalpha(cNext));
             bool endOfCurrentWord = (
                 !isalnum(cNext) ||
                 (currentLetterIsLowercase && nextLetterIsUppercase) ||
@@ -80,11 +89,13 @@ void glue_together(char outputBuffer[], char id[], char filenameBody[], char ext
 void format_name(char outputBuffer[], char srcString[]){
     int ln = strlen(srcString);
     char extensionNameBuffer[ln+1];
-    char filenameBody[ln*2];
+    char filenameBody[ln*2]; // why *2?
     char idBuffer[ln+1];
     char delimiter = '_';
+
     cut_extension_name_off(extensionNameBuffer, srcString);
     cut_id_out(idBuffer, srcString);
     separate_and_apply_case(srcString, filenameBody, delimiter);
+
     glue_together(outputBuffer, idBuffer, filenameBody, extensionNameBuffer, delimiter);
 }

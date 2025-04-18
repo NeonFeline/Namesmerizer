@@ -31,16 +31,13 @@ static void anyascii_string(const char *in, char *out) {
 
 
 int main(int argc, char *argv[]) {
-	char name_out[256] = "sHEsXsW";
-	lowercase_letters_and_convert_first_one_to_uppercase_inplace(name_out);
-	printf("%c\n", convert_to_lowercase('a'));
-	printf("%s\n", name_out);
 
-  	anyascii_string("Żok", name_out);
-  	printf("%s\n", name_out);
-
-	char name[] = "__[misterKvadrister[]..---134553.zip";
-	char name_out2[strlen(name)*2];
-	format_name(name_out2, name);
-	puts(name_out2);
+	for (int i = 1; i < argc; i++) {
+		int len = strlen(argv[i]);
+		char name1[len+10];
+		char name2[len+10];
+		anyascii_string(argv[i], name1);
+		format_name(name2, name1);
+		printf("%s\n", name2);
+	}
 }
