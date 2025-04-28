@@ -56,3 +56,5 @@ CMakeFiles/*
 *.cmake
 CMakeCache.txt
 Makefile
+namesmerizer
+test_runner

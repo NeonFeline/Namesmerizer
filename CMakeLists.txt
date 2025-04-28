@@ -18,13 +18,13 @@ file(GLOB MAIN_SOURCES "*.c" "src/*.c")
 list(REMOVE_ITEM MAIN_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/test.c")
 
 # Create the namesmerizer executable
-add_executable(namesmerizer.o ${MAIN_SOURCES})
+add_executable(namesmerizer ${MAIN_SOURCES})
 
 # Link the anyascii library to namesmerizer
-target_link_libraries(namesmerizer.o anyascii)
+target_link_libraries(namesmerizer anyascii)
 
 # Create a separate executable for tests
-add_executable(test_runner.o test.c)
+add_executable(test_runner test.c)
 
 # Link the anyascii library to test_runner too
-target_link_libraries(test_runner.o anyascii)
+target_link_libraries(test_runner anyascii)
