@@ -9,7 +9,9 @@
 // Doesn't work when srcString is just ".zip"
 void cut_extension_name_off(char extensionNameBuffer[], char srcString[]){
     int ln = strlen(srcString);
-    for (int i=ln-1; i > 0; i--){
+    extensionNameBuffer[0] = '\0'; 
+
+    for (int i=ln-1; i >= 0; i--){
         if (srcString[i] == '.'){
             strncpy(extensionNameBuffer, srcString+i, ln-i+1); // +1 for null terminating char
             srcString[i] = '\0';
@@ -76,12 +78,18 @@ void separate_and_apply_case(char srcString[], char filenameBody[], char delimit
             }
         }
     }
+    
     filenameBody[strlen(filenameBody)-1] = '\0'; //removes the delimiter at the end
 }
 
 void glue_together(char outputBuffer[], char id[], char filenameBody[], char extensionName[], char delimiter){
     strcpy(outputBuffer, id);
-    outputBuffer[strlen(outputBuffer)] = delimiter;
+
+    int idLen = strlen(outputBuffer);
+    
+    outputBuffer[idLen] = delimiter;
+    outputBuffer[idLen + 1] = '\0';
+
     strcat(outputBuffer, filenameBody);
     strcat(outputBuffer, extensionName);
 }
