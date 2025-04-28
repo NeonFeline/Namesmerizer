@@ -7,7 +7,8 @@ project(namesmerizer C)
 # Create a static library from anyascii and letter_case files
 add_library(anyascii
     "src/anyascii.c"
-    "src/letter_case.c"    # Added file that likely contains convert_to_uppercase
+    "src/letter_case.c"
+    "src/name_formatter.c"
 )
 
 # Collect all source files for namesmerizer
